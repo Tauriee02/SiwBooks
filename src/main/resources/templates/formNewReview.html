@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>New Review</title>
+    <link rel="stylesheet" href="/css/operazioni.css" /> 
+  </head>
+
+  <body>
+    <div><a href="/"> <img src="/images/logo-siwBooks.png" alt="Logo SiwBook" class="logo-img" /></a></div>
+  
+    <h1>Aggiungi una recensione</h1>
+
+	<form th:action="@{'/book/' + ${book.id} + '/newReview'}" method="POST" th:object="${review}">
+	  <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
+
+	  <div>
+	    <label>Titolo:</label>
+	    <input required type="text" th:field="*{title}" />
+	    <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+	  </div>
+
+	  <div>
+	    <label>Voto:</label>
+	    <input required type="number" th:field="*{rating}" min="1" max="5" />
+	    <span th:if="${#fields.hasErrors('rating')}" th:errors="*{rating}"></span>
+	  </div>
+
+	  <div>
+	    <label>Testo:</label>
+	    <textarea th:field="*{text}" required></textarea>
+	    <span th:if="${#fields.hasErrors('text')}" th:errors="*{text}"></span>
+	  </div>
+
+	  <div>
+	    <button type="submit">Conferma</button>
+	  </div>
+	</form>
+
+
+  </body>
+</html>

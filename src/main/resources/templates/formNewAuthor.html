@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Nuovo Autore</title>
+  <link rel="stylesheet" href="/css/operazioni.css" />
+</head>
+
+<body>
+	<header>
+	      <a href="/" class="logo-link">
+	        <img src="/images/logo-siwBooks.png" alt="Logo SiwBook" class="logo-img" />
+	      </a>
+	      <div class="navbar">
+	        <h1 class="logo">Libreria SIW</h1>
+	        <nav>
+	          <ul>            
+				<li><a href="/homepage">Home</a></li>
+	            <li><a href="/books">Catalogo</a></li>
+	            <li><a href="/bookIndex">Operazioni Libri</a></li>
+	            <li><a href="/login">Login</a></li>
+	          </ul>
+	        </nav>
+	      </div>
+	    </header>
+
+  <main class="container">
+    <h1>Aggiungi un autore</h1>
+	
+    <form th:action="@{/author}" method="POST" th:object="${author}" class="form"  enctype="multipart/form-data">
+
+      <p th:each="err : ${#fields.globalErrors()}" th:text="${err}" class="error-msg">...</p>
+
+      <div class="form-group">
+        <label for="name">Nome:</label>
+        <input required type="text" id="name" th:field="${author.name}" />
+        <span class="error-msg" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+      </div>
+
+      <div class="form-group">
+        <label for="surname">Cognome:</label>
+        <input required type="text" id="surname" th:field="${author.surname}" />
+        <span class="error-msg" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></span>
+      </div>
+
+      <div class="form-group">
+        <label for="nationality">Nazionalità:</label>
+        <input required type="text" id="nationality" th:field="${author.nationality}" />
+        <span class="error-msg" th:if="${#fields.hasErrors('nationality')}" th:errors="*{nationality}"></span>
+      </div>
+
+      <div class="form-group">
+        <label for="dateOfBirth">Data di nascita:</label>
+        <input required type="date" id="dateOfBirth" th:field="${author.dateOfBirth}" />
+        <span class="error-msg" th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}"></span>
+      </div>
+
+      <div class="form-group">
+        <label for="dateOfDeath">Data di morte:</label>
+        <input type="date" id="dateOfDeath" th:field="${author.dateOfDeath}" />
+      </div>
+
+	  <div class="form-group">
+	      <label for="image">Carica Immagine</label><br />
+	      <input type="file" name="imageFile" accept="image/*" />
+	  </div>
+
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary">Conferma</button>
+      </div>
+
+    </form>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Libreria SIW. Tutti i diritti riservati.</p>
+  </footer>
+</body>
+</html>

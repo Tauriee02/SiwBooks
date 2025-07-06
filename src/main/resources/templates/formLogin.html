@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SiwBook - Login</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+
+<body>
+  <header>
+    <div class="navbar login-navbar">
+      <div class="logo">
+        <a href="/" style="color: white; text-decoration: none;">SiwBook</a>
+      </div>
+      <nav>
+        <ul>
+          <li th:if="${userDetails}">
+            <span th:text="${userDetails.username}" style="color: white;"></span>
+          </li>
+          <li th:if="${userDetails}">
+            <a href="/logout">Logout</a>
+          </li>
+          <li th:unless="${userDetails}">
+            <a href="/login">Login</a>
+          </li>
+          <li th:unless="${userDetails}">
+            <a th:href="@{/register}">Registrati</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  
+  <main class="container">
+    <a href="/" class="logo-link">
+      <img src="/images/logo-siwBooks.png" alt="SiwBook Logo" />
+    </a>
+
+    <div class="login-container">
+      <h2>Login</h2>
+
+      <form th:action="@{/login}" method="POST">
+        <label for="username">Username:</label>
+        <input id="username" name="username" type="text" required />
+
+        <label for="password">Password:</label>
+        <input id="password" name="password" type="password" required />
+
+        <div class="error-message" th:if="${param.error != null}">
+          Username o password errati
+        </div>
+
+        <button type="submit">Login</button>
+      </form>
+    </div>
+  </main>
+</body>
+
+</html>

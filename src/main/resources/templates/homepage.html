@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Libreria SIW</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+	<header>
+		<a href="/homepage" class="logo-link">
+	      <img src="/images/logo-siwBooks.png" alt="Logo SiwBook" class="logo-img" />
+	    </a>
+	  <div class="navbar">
+	    <h1 class="logo">Libreria SIW</h1>
+	    <nav>
+	      <ul>
+	        <li><a th:if="${user}" href="/profile">Profilo</a></li> 
+	        <li><a href="/books">Catalogo</a></li>
+	        <li><a href="/bookIndex">Libri</a></li>
+	        <li><a href="/authorIndex">Autori</a></li>
+	        <li><a href="/login">Login</a></li>
+	      </ul>
+	    </nav>
+	  </div>
+	</header>
+	<main class="container">
+	  <h2>I Nostri Libri</h2>
+
+	  <!-- se NON ci sono libri -->
+	  <div th:if="${books == null or not books.iterator().hasNext()}" class="info">
+	    Nessun libro disponibile.
+	  </div>
+
+	  <!-- se CI sono libri -->
+	  <div class="book-grid" th:if="${books != null and books.iterator().hasNext()}">
+	    <div class="book-card" th:each="book : ${books}">
+	      <a th:href="@{'/book/' + ${book.id}}">
+	       <img th:src="@{'/image/book/' + ${book.id}}" alt="Foto libro" />
+	      </a>
+	      <div class="book-content">
+	        <h3 class="book-title" th:text="${book.title}">Titolo</h3>
+	        <p class="book-author" th:if="${book.authors != null and !#lists.isEmpty(book.authors)}">
+	          <span th:each="author, iter : ${book.authors}"
+	                th:text="${author.name + ' ' + author.surname + (iter.last ? '' : ', ')}"></span>
+	        </p>
+	        <p class="book-author" th:if="${book.authors == null or #lists.isEmpty(book.authors)}">
+	          Autore sconosciuto
+	        </p>
+	        <p class="book-year">
+	          Anno: <a th:href="@{'/book/year/' + ${book.year}}" th:text="${book.year}">2020</a>
+	        </p>
+	      </div>
+	    </div>
+	  </div>
+	</main>
+
+  <footer>
+    <p>&copy; 2025 Libreria SIW. Tutti i diritti riservati.</p>
+  </footer>
+</body>
+</html>

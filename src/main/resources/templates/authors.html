@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Autori</title>
+    <link rel="stylesheet" href="/css/operazioni.css" />
+  </head>
+
+  <body>
+
+    <header>
+      <a href="/" class="logo-link">
+        <img src="/images/logo-siwBooks.png" alt="Logo SiwBook" class="logo-img" />
+      </a>
+      <div class="navbar">
+        <h1 class="logo">Libreria SIW</h1>
+        <nav>
+          <ul>
+            <li><a href="/books">Catalogo</a></li>
+            <li><a href="/bookIndex">Operazioni Libri</a></li>
+            <li><a href="/authorIndex">Operazioni Autori</a></li>
+            <li><a href="/login">Login</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+
+    <main class="main-content">
+      <h2>Autori</h2>
+
+      <div th:if="${authors.isEmpty()}" class="info">
+        Non ci sono autori nel sistema.
+      </div>
+
+	  <ul class="author-list">
+	    <li th:each="author : ${authors}" class="author-item">
+	      <a th:href="@{'/author/' + ${author.id}}"
+	         th:text="${author.name} + ' ' + ${author.surname}"
+	         class="btn btn-primary"></a>
+
+	 
+	      <div th:if="${isAdmin}" class="button-group">
+	        <a th:href="@{'/author/' + ${author.id} + '/update'}" class="btn btn-secondary">
+	          Modifica
+	        </a>
+	        <form th:action="@{'/author/' + ${author.id} + '/delete'}" method="POST" class="inline-form">
+	          <button type="submit" class="btn btn-danger">Elimina</button>
+	        </form>
+	      </div>
+	    </li>
+	  </ul>
+    </main>
+
+    
+    <footer>
+      <p>&copy; 2025 Libreria SIW. Tutti i diritti riservati.</p>
+    </footer>
+  </body>
+</html>

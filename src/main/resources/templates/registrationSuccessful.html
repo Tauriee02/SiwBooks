@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SiwBooks - Registrazione conclusa</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+
+<body>
+  <header>
+    <div class="navbar">
+      <div class="logo">
+        <a href="/" style="color: white; text-decoration: none;">SiwBooks</a>
+      </div>
+      <nav>
+        <ul>
+          <li th:if="${userDetails}">
+            <span th:text="${userDetails.username}" style="color: white;"></span>
+          </li>
+          <li th:if="${userDetails}">
+            <a href="/logout">Logout</a>
+          </li>
+          <li th:unless="${userDetails}">
+            <a href="/login">Login</a>
+          </li>
+          <li th:unless="${userDetails}">
+            <a th:href="@{/register}">Registrati</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <a href="/" class="logo-link">
+      <img src="/images/logo-siwBooks.png" alt="SiwBook Logo" />
+    </a>
+
+    <div class="login-container">
+      <h2>Congratulazioni, ti sei registrato!</h2>
+      
+      <div class="info-row">
+        <strong>Nome:</strong>
+        <span th:text="${user.name}"></span>
+      </div>
+      
+      <div class="info-row">
+        <strong>Cognome:</strong>
+        <span th:text="${user.surname}"></span>
+      </div>
+      
+      <div class="info-row">
+        <strong>Email:</strong>
+        <span th:text="${user.email}"></span>
+      </div>
+      
+      <a href="/login" class="btn-view" style="margin-top: 30px;">Vai al login</a>
+    </div>
+  </main>
+</body>
+
+</html>

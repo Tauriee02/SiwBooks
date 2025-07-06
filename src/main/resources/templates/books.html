@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Libri</title>
+    <link rel="stylesheet" href="/css/operazioni.css" />
+  </head>
+
+  <body>
+    <header>
+      <a href="/" class="logo-link">
+        <img src="/images/logo-siwBooks.png" alt="Logo SiwBook" class="logo-img" />
+      </a>
+      <div class="navbar">
+        <h1 class="logo">Libreria SIW</h1>
+        <nav>
+          <ul>
+            <li><a href="/homepage">Home</a></li>
+            <li><a href="/books">Catalogo</a></li>
+            <li><a href="/bookIndex">Operazioni Libri</a></li>
+            <li><a href="/login">Login</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <h1>Libri</h1>
+
+      <div th:if="${books.isEmpty()}" class="info">
+        Non ci sono libri nel sistema
+      </div>
+
+      <ul class="book-list">
+        <li th:each="book : ${books}" class="book-card">
+          <a th:href="@{'/book/' + ${book.id}}"
+             th:text="${book.title} + ' (' + ${book.year} + ')'"
+             class="book-title-link"></a>
+
+          <div th:if="${isAdmin}">
+            <a th:href="@{'/book/' + ${book.id} + '/update'}" class="btn btn-secondary">Modifica</a>
+
+            <form th:action="@{'/book/' + ${book.id} + '/delete'}" method="POST"
+                  onsubmit="return confirm('Sei sicuro di voler eliminare il libro?');">
+              <button type="submit" class="btn btn-secondary">Elimina</button>
+            </form>
+          </div>
+        </li>
+      </ul>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 Libreria SIW. Tutti i diritti riservati.</p>
+    </footer>
+  </body>
+</html>

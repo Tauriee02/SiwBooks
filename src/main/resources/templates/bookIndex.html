@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Home SIW Book</title>
+    <link rel="stylesheet" href="/css/operazioni.css" />
+  </head>
+
+  <body>
+    
+    <header>
+      <a href="/" class="logo-link">
+        <img src="/images/logo-siwBooks.png" alt="Logo SiwBook" class="logo-img" />
+      </a>
+      <div class="navbar">
+        <h1 class="logo">Libreria SIW</h1>
+        <nav>
+          <ul>
+			<li><a href="/homepage">Home</a></li>
+            <li><a href="/books">Catalogo</a></li>
+            <li><a href="/authorIndex">Operazioni Autori</a></li>
+            <li><a href="/login">Login</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+   
+	<main class="main-content">
+	  <h2><a href="/books" class="btn btn-primary">Lista libri</a></h2>
+
+	  <div th:if="${isAdmin}">
+	    <h2><a href="/formNewBook" class="btn btn-secondary">Inserisci un nuovo libro</a></h2>
+	    <h2><a href="/updateBooks" class="btn btn-secondary">Gestisci libro</a></h2>
+	  </div>
+	</main>
+
+    <footer>
+      <p>&copy; 2025 Libreria SIW. Tutti i diritti riservati.</p>
+    </footer>
+  </body>
+</html>

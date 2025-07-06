@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Modifica Author</title>
+	<link rel="stylesheet" href="/css/operazioni.css" />
+  </head>
+  <body>
+	<header>
+		      <a href="/" class="logo-link">
+		        <img src="/images/logo-siwBooks.png" alt="Logo SiwBook" class="logo-img" />
+		      </a>
+		      <div class="navbar">
+		        <h1 class="logo">Libreria SIW</h1>
+		        <nav>
+		          <ul>            
+					<li><a href="/homepage">Home</a></li>
+		            <li><a href="/books">Catalogo</a></li>
+		            <li><a href="/bookIndex">Operazioni Libri</a></li>
+		            <li><a href="/login">Login</a></li>
+		          </ul>
+		        </nav>
+		      </div>
+		    </header>
+    <div><a href="/"><img src="/logo-siw.png" width="20%"/></a></div>
+    <h1>Modifica un autore</h1>
+	<form th:action="@{'/author/' + ${author.id} + '/update'}" method="POST" enctype="multipart/form-data" th:object="${author}">
+      <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
+      <div>
+        <label>Nome:</label> <span><input required type="text" th:field="${author.name}"/></span>
+        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+      </div>
+      <div>
+        <label>Cognome:</label><span><input required type="text" th:field="${author.surname}"/></span>
+        <span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></span>
+      </div>
+	  <div>
+	    <label>Nazionalità:</label><span><input required type="text" th:field="${author.nationality}"/></span>
+	    <span th:if="${#fields.hasErrors('nationality')}" th:errors="*{nationality}"></span>
+	  </div>
+	  <div>
+	    <label>Data di nascita:</label><span><input required type="date" th:field="${author.dateOfBirth}"/></span>
+	    <span th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}"></span>
+	  </div>
+	  <div>
+	      <label>Data di morte:</label><span><input type="date" th:field="${author.dateOfDeath}"/></span>
+	      
+	    </div>
+      <div>
+        <label>Immagine:</label><span><input type="file" name="imageFile" /></span>
+      </div>
+	  
+	  <input type="hidden" th:field="*{id}" />
+	  
+	  <div>
+        <span><button type="submit">Conferma</button></span>
+      </div>
+    </form>
+  </body>
+</html>

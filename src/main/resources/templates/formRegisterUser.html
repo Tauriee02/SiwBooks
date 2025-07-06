@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SiwBook - Registrazione</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+
+<body>
+  <header>
+    <div class="navbar login-navbar">
+      <div class="logo">
+        <a href="/" style="color: white; text-decoration: none;">SiwBook</a>
+      </div>
+      <nav>
+        <ul>
+          <li th:if="${userDetails}">
+            <span th:text="${userDetails.username}" style="color: white;"></span>
+          </li>
+          <li th:if="${userDetails}">
+            <a href="/logout">Logout</a>
+          </li>
+          <li th:unless="${userDetails}">
+            <a href="/login">Login</a>
+          </li>
+          <li th:unless="${userDetails}">
+            <a th:href="@{/register}">Registrati</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <a href="/" class="logo-link">
+      <img src="/images/logo-siwBooks.png" alt="SiwBook Logo" />
+    </a>
+
+    <section class="register-container">
+      <h2>Registrazione nuovo utente</h2>
+
+      <form th:action="@{/register}" method="POST" class="form-register">
+
+        <label for="name">Nome</label>
+        <input id="name" type="text" placeholder="Nome" required th:field="${user.name}" />
+        <div class="error-message" th:if="${#fields.hasErrors('user.name')}" th:errors="${user.name}"></div>
+
+        <label for="surname">Cognome</label>
+        <input id="surname" type="text" placeholder="Cognome" required th:field="${user.surname}" />
+        <div class="error-message" th:if="${#fields.hasErrors('user.surname')}" th:errors="${user.surname}"></div>
+
+        <label for="email">Email</label>
+        <input id="email" type="email" placeholder="Email" required th:field="${user.email}" />
+        <div class="error-message" th:if="${#fields.hasErrors('user.email')}" th:errors="${user.email}"></div>
+
+        <label for="birth">Data di nascita</label>
+        <input id="birth" type="date" required th:field="${user.birth}" />
+        <div class="error-message" th:if="${#fields.hasErrors('user.birth')}" th:errors="${user.birth}"></div>
+
+        <label for="username">Username</label>
+        <input id="username" type="text" placeholder="Username" required th:field="${credentials.username}" />
+        <div class="error-message" th:if="${#fields.hasErrors('credentials.username')}" th:errors="${credentials.username}"></div>
+
+        <label for="password">Password</label>
+        <input id="password" type="password" placeholder="Password" required th:field="${credentials.password}" />
+        <div class="error-message" th:if="${#fields.hasErrors('credentials.password')}" th:errors="${credentials.password}"></div>
+
+        <label for="role">Ruolo</label>
+        <select id="role" th:field="${credentials.role}">
+          <option value="DEFAULT_ROLE">Utente</option>
+          <option value="ADMIN_ROLE">Amministratore</option>
+        </select>
+        <div class="error-message" th:if="${#fields.hasErrors('credentials.role')}" th:errors="${credentials.role}"></div>
+
+        <button type="submit" class="btn btn-primary">Registra</button>
+      </form>
+    </section>
+  </main>
+</body>
+
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Aggiungi Immagini al Libro</title>
+  <link rel="stylesheet" href="/css/operazioni.css" />
+</head>
+<body>
+
+	<header>
+	  <a href="/" class="logo-link">
+	    <img src="/images/logo-siwBooks.png" alt="Logo SiwBook" class="logo-img" />
+	  </a>
+	  <div class="navbar">
+	    <h1 class="logo">Libreria SIW</h1>
+	    <nav>
+	      <ul>
+	        <li><a href="/homepage">Home</a></li>
+	        <li><a href="/books">Catalogo</a></li>
+	        <li><a href="/bookIndex">Operazioni Libri</a></li>
+	        <li><a href="/login">Login</a></li>
+	      </ul>
+	    </nav>
+	  </div>
+	</header>
+	
+	<main class="main-content">
+	  <div class="container">
+	    <h2 th:text="'Gestione immagini per: ' + ${book.title}">Gestione immagini</h2>
+	
+	    <!-- Lista immagini esistenti -->
+	    <h3>Immagini attuali</h3>
+	    <div class="image-gallery" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 20px;">
+	      <div th:each="image : ${book.images}" style="text-align: center;">
+	        <img th:src="@{'/image/' + ${image.id}}" class="book-img" style="width: 100%; max-height: 150px; object-fit: cover;" />
+	        <form th:action="@{'/book/' + ${book.id} + '/removeImage'}" method="post" style="margin-top: 10px;">
+	          <input type="hidden" name="imageId" th:value="${image.id}" />
+	          <button type="submit" class="btn btn-danger">Rimuovi</button>
+	        </form>
+	      </div>
+	    </div>
+	
+	    <hr style="margin: 2rem 0; border-color: #ccc;" />
+	
+	    <!-- Form per aggiungere immagini -->
+	    <h3>Aggiungi nuove immagini</h3>
+	    <form th:action="@{'/book/' + ${book.id} + '/addImage'}" method="post" enctype="multipart/form-data">
+	      <div class="form-group">
+	        <label for="imageFile">Seleziona immagine (puoi caricarne più di una):</label>
+	        <input type="file" id="imageFile" name="imageFiles" multiple accept="image/*" required />
+	      </div>
+	      <div class="form-group">
+	        <button type="submit" class="btn btn-primary">Carica Immagini</button>
+	      </div>
+	    </form>
+	  </div>
+	</main>
+	
+	<footer>
+	  <p>&copy; 2025 Libreria SIW. Tutti i diritti riservati.</p>
+	</footer>
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Gestione Autori - SIW Book</title>
+    <link rel="stylesheet" href="/css/operazioni.css" />
+  </head>
+
+  <body>
+   
+    <header>
+      <a href="/" class="logo-link">
+        <img src="/images/logo-siwBooks.png" alt="Logo SiwBook" class="logo-img" />
+      </a>
+      <div class="navbar">
+        <h1 class="logo">Libreria SIW</h1>
+        <nav>
+          <ul>            
+			<li><a href="/homepage">Home</a></li>
+            <li><a href="/books">Catalogo</a></li>
+            <li><a href="/bookIndex">Operazioni Libri</a></li>
+            <li><a href="/login">Login</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+  
+    <main class="main-content">
+      <h2><a href="/authors" class="btn btn-primary">Lista autori</a></h2>
+
+      <div th:if="${isAdmin}">
+        <h2><a href="/formNewAuthor" class="btn btn-secondary">Inserisci un nuovo autore</a></h2>
+        <h2><a href="/updateAuthors" class="btn btn-secondary">Gestisci autore</a></h2>
+      </div>
+    </main>
+
+ 
+    <footer>
+      <p>&copy; 2025 Libreria SIW. Tutti i diritti riservati.</p>
+    </footer>
+  </body>
+</html>

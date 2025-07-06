@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Libro</title>
+    <link rel="stylesheet" href="/css/operazioni.css" />
+</head>
+
+<body>
+    <header>
+        <a href="/" class="logo-link">
+            <img src="/images/logo-siwBooks.png" alt="Logo SiwBook" class="logo-img" />
+        </a>
+        <div class="navbar">
+            <h1 class="logo">Libreria SIW</h1>
+            <nav>
+                <ul>
+                    <li><a href="/homepage">Home</a></li>
+                    <li><a href="/books">Catalogo</a></li>
+                    <li><a href="/bookIndex">Operazioni Libri</a></li>
+                    <li><a href="/login">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <div th:if="${book}">
+            <h1 th:text="${book.title}">Titolo Libro</h1>
+            <div class="info">
+				Anno: <span th:text="'(' + ${book.year} + ')'"></span>
+               <!-- Anno: <a th:href="${'year/' + book.year}" th:text="'(' + ${book.year} + ')'"></a>-->
+            </div>
+           
+			<img class="book-img" width="30%" th:src="@{'/image/book/' + ${book.id}}" alt="Copertina Libro" />
+        </div>
+
+        <div th:if="${book.authors.isEmpty()}" class="info">
+            Il libro non ha autore
+        </div>
+
+       <!--<ul class="author-list">
+            <li th:each="author : ${book.authors}">
+                <a th:href="@{'/author/' + ${author.id}}" th:text="${author.name} + ' ' + ${author.surname}"></a>
+                <div th:if="${isAdmin}">
+                    <a class="btn btn-secondary" th:href="@{'/author/' + ${author.id} + '/update'}">Modifica</a>
+                </div>
+            </li>
+        </ul>--> 
+
+        <div th:if="${book.reviews.isEmpty()}" class="info">
+            Il libro non ha recensioni
+        </div>
+
+        <ul class="review-list">
+            <li th:each="review : ${book.reviews}" class="review-card">
+                <h3 th:text="${review.title}">Titolo recensione</h3>
+                <div th:if="${review.user != null}">
+                    <span class="review-author" th:text="${review.user.name}">Nome autore</span>
+                </div>
+                <p th:text="${review.text}">Testo della recensione</p>
+                <p>
+                    ⭐ Valutazione: <span th:text="${review.rating} + ' / 5'">0 / 5</span>
+                </p>
+                <div th:if="${isAdmin} ">
+                    <form th:action="@{'/review/' + ${review.id} + '/delete'}" method="post" onsubmit="return confirm('Sei sicuro di voler eliminare la recensione?');">
+                        <button type="submit" class="btn btn-secondary">Elimina</button>
+                    </form>
+                </div>
+            </li>
+        </ul>
+
+        <div class="btn-container" th:if="${book} and ${!userHasReviewed}">
+            <a class="btn btn-primary" th:href="@{'/book/' + ${book.id} + '/review'}">Scrivi una recensione</a>
+        </div>
+
+        <div th:unless="${book}" class="info">
+            Libro non trovato.
+        </div>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Libreria SIW. Tutti i diritti riservati.</p>
+    </footer>
+</body>
+</html>

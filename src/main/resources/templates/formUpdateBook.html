@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Modifica libro</title>
+    <link rel="stylesheet" href="/css/operazioni.css" />
+</head>
+<body>
+	<header>
+	    <a href="/" class="logo-link">
+	        <img src="/images/logo-siwBooks.png" alt="Logo SiwBook" class="logo-img" />
+	    </a>
+	    <div class="navbar">
+	        <h1 class="logo">Libreria SIW</h1>
+	        <nav>
+	            <ul>
+	                <li><a href="/homepage">Home</a></li>
+	                <li><a href="/books">Catalogo</a></li>
+	                <li><a href="/bookIndex">Operazioni Libri</a></li>
+	                <li><a href="/login">Login</a></li>
+	            </ul>
+	        </nav>
+	    </div>
+	</header>
+	
+	<main class="main-content">
+	    <div class="container">
+	        <h2 th:text="${book.id != null} ? 'Modifica libro' : 'Aggiungi un libro'"></h2>
+	
+	        <form th:action="@{/book}" method="POST" th:object="${book}">
+	            <p th:each="err : ${#fields.globalErrors()}" th:text="${err}" class="error-msg">...</p>
+	
+	            <div class="form-group">
+	                <label for="title">Titolo:</label>
+	                <input required type="text" th:field="*{title}" id="title" />
+	                <span class="error-msg" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+	            </div>
+	
+	            <div class="form-group">
+	                <label for="year">Anno:</label>
+	                <input required type="number" th:field="*{year}" id="year" />
+	                <span class="error-msg" th:if="${#fields.hasErrors('year')}" th:errors="*{year}"></span>
+	            </div>
+	
+	            <div class="form-group">
+	                <label for="authors">Seleziona autori esistenti:</label>
+	                <select th:field="*{authors}" id="authors" multiple>
+	                    <option th:each="autore : ${authors}"
+	                            th:value="${autore.id}"
+	                            th:text="${autore.name + ' ' + autore.surname}"></option>
+	                </select>
+	            </div>
+	
+	            <div class="form-group">
+	                <a class="btn btn-secondary" th:href="@{'/book/'+${book.id}+'/images'}">Aggiungi immagine</a>
+	                <input type="hidden" th:field="*{id}" />
+	            </div>
+	
+	            <div class="form-group btn-container">
+	                <button type="submit" class="btn btn-primary">Conferma</button>
+	            </div>
+	        </form>
+	    </div>
+	</main>
+	
+	<footer>
+	    <p>&copy; 2025 Libreria SIW. Tutti i diritti riservati.</p>
+	</footer>
+</body>
+</html>
