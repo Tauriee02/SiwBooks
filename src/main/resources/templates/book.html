@@ -17,7 +17,8 @@
                 <ul>
                     <li><a href="/homepage">Home</a></li>
                     <li><a href="/books">Catalogo</a></li>
-                    <li><a href="/bookIndex">Operazioni Libri</a></li>
+                    <li><a href="/authorIndex">Autori</a></li>
+					<li><a th:if="${user}" href="/profile">Recensioni</a></li>
                     <li><a href="/login">Login</a></li>
                 </ul>
             </nav>
@@ -40,14 +41,14 @@
             Il libro non ha autore
         </div>
 
-       <!--<ul class="author-list">
+       <ul class="author-list">
             <li th:each="author : ${book.authors}">
                 <a th:href="@{'/author/' + ${author.id}}" th:text="${author.name} + ' ' + ${author.surname}"></a>
                 <div th:if="${isAdmin}">
-                    <a class="btn btn-secondary" th:href="@{'/author/' + ${author.id} + '/update'}">Modifica</a>
+                    <a class="btn btn-secondary" th:href="@{'/author/' + ${author.id} + '/update'}">Modifica Autore</a>
                 </div>
             </li>
-        </ul>--> 
+        </ul>
 
         <div th:if="${book.reviews.isEmpty()}" class="info">
             Il libro non ha recensioni

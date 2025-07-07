@@ -16,9 +16,10 @@
         <h1 class="logo">Libreria SIW</h1>
         <nav>
           <ul>
+			<li><a href="/homepage">Home</a></li>
             <li><a href="/books">Catalogo</a></li>
-            <li><a href="/bookIndex">Operazioni Libri</a></li>
-            <li><a href="/authorIndex">Operazioni Autori</a></li>
+            <li><a href="/bookIndex">Libri</a></li>
+            <li><a href="/authorIndex">Autori</a></li>
             <li><a href="/login">Login</a></li>
           </ul>
         </nav>
@@ -50,7 +51,6 @@
           Data di morte:
           <strong th:text="${author.dateOfDeath}"></strong>
         </div>
-		Immagine:
 		<img class="author-img" th:src="@{'/image/author/' + ${author.id}}" alt="Foto Autore" />
       </div>
 

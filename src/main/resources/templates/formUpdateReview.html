@@ -1,42 +1,63 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Update Review</title>
-    <link rel="stylesheet" href="/css/operazioni.css" /> 
+    <title>Modifica Recensione</title>
+    <link rel="stylesheet" href="/css/operazioni.css" />
   </head>
 
   <body>
-    <div><a href="/"> <img src="/images/logo-siwBooks.png" alt="Logo SiwBook" class="logo-img" /></a></div>
-  
-    <h1>Modifica una recensione</h1>
+    <header>
+      <a href="/" class="logo-link">
+        <img src="/images/logo-siwBooks.png" alt="Logo SiwBook" class="logo-img" />
+      </a>
+      <div class="navbar">
+        <h1 class="logo">Libreria SIW</h1>
+        <nav>
+          <ul>
+            <li><a href="/homepage">Home</a></li>
+            <li><a href="/books">Catalogo</a></li>
+            <li><a href="/bookIndex">Libri</a></li>
+            <li><a href="/login">Login</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
 
-	<form th:action="@{'/book/' + ${review.book.id} + '/newReview'}" method="POST" th:object="${review}">
-	  <p th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
-	  <input type="hidden" th:field="*{id}" />
-	  <input type="hidden" th:field="*{book}" />
-	  <div>
-	    <label>Titolo:</label>
-	    <input required type="text" th:field="*{title}" />
-	    <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
-	  </div>
+    <main class="container">
+      <h1>Modifica una recensione</h1>
 
-	  <div>
-	    <label>Voto:</label>
-	    <input required type="number" th:field="*{rating}" min="1" max="5" />
-	    <span th:if="${#fields.hasErrors('rating')}" th:errors="*{rating}"></span>
-	  </div>
+      <form th:action="@{'/book/' + ${review.book.id} + '/newReview'}" method="POST" th:object="${review}">
+        <p th:each="err : ${#fields.globalErrors()}" th:text="${err}" class="error-msg"></p>
 
-	  <div>
-	    <label>Testo:</label>
-	    <textarea th:field="*{text}" required></textarea>
-	    <span th:if="${#fields.hasErrors('text')}" th:errors="*{text}"></span>
-	  </div>
+        <input type="hidden" th:field="*{id}" />
+        <input type="hidden" th:field="*{book}" />
 
-	  <div>
-	    <button type="submit">Conferma</button>
-	  </div>
-	</form>
+        <div class="form-group">
+          <label for="title">Titolo:</label>
+          <input id="title" required type="text" th:field="*{title}" />
+          <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="error-msg"></span>
+        </div>
 
+        <div class="form-group">
+          <label for="rating">Voto:</label>
+          <input id="rating" required type="number" min="1" max="5" th:field="*{rating}" />
+          <span th:if="${#fields.hasErrors('rating')}" th:errors="*{rating}" class="error-msg"></span>
+        </div>
 
+        <div class="form-group">
+          <label for="text">Testo:</label>
+          <textarea id="text" th:field="*{text}" required rows="5"></textarea>
+          <span th:if="${#fields.hasErrors('text')}" th:errors="*{text}" class="error-msg"></span>
+        </div>
+
+        <div class="btn-container">
+          <button type="submit" class="btn btn-primary">Conferma</button>
+        </div>
+      </form>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 Libreria SIW. Tutti i diritti riservati.</p>
+    </footer>
   </body>
 </html>
